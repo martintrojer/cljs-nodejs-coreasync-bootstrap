@@ -9,6 +9,7 @@
      (println "world!")))
   (println "Hello")
 
+  ;; node core library
   (cljs-nodejs-coreasync-bootstrap.fs/test "hello.js")
   )
 
