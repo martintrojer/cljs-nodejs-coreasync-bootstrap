@@ -5,7 +5,11 @@
                    [cljs.core.match.macros :refer [match]]))
 
 ;; This example shows interacting with a node core library.
-;; Here we use one channel to "queue" fs operations
+;; We use one channel to "queue" all fs operations, and
+;; core.match to dispatch on operation type
+
+;; Please note that used "fs/" functions need to be put in externs.js
+;; for the advanced compilation to work
 
 (defn test [filename]
 
@@ -29,12 +33,13 @@
     (fs/open filename "r"
              (fn [_ fd] (go (>! fs-ops [:open fd]))))
 
-    ;; file operation go routine
+    ;; file operation go block
     (go
      (loop []
        (match [(<! fs-ops)]
-              [[:open fd]]      (do (handle-open fd) (recur))
-              [[:read fd data]] (do (handle-read fd data) (recur))
-              [[:close fd]]     (do (handle-close fd) (recur))
-              [[:quit]]         true
-              :else             (recur))))))
+              [[:open fd]]      (handle-open fd)
+              [[:read fd data]] (handle-read fd data)
+              [[:close fd]]     (handle-close fd)
+              :else             (recur) ;; This line has to be here to please the cljs compiler
+              )
+       (recur)))))
