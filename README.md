@@ -5,6 +5,7 @@ Scaffold setup for some ClojureScript, node.js, core.async action
 ## Usage
 
 ```
+$ npm install
 $ lein cljsbuild once adv
 $ node hello.js
 ```

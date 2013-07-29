@@ -4,13 +4,15 @@
 
 (defn -main [& args]
   (go
-   (dotimes [_ 5]
-     (<! (timeout 200))
-     (println "world!")))
+   (<! (timeout 200))
+   (println "world!"))
   (println "Hello")
 
-  ;; node core library
+  ;; node core library example
   (cljs-nodejs-coreasync-bootstrap.fs/test "hello.js")
+
+  ;; npm library example
+  (cljs-nodejs-coreasync-bootstrap.express/test)
   )
 
 
