@@ -10,16 +10,6 @@ $ lein cljsbuild once adv
 $ node hello.js
 ```
 
-### Installing core.async
-
-core.async is still not released on a maven central. You can install it in your local maven repo like this
-
-```
-$ git clone https://github.com/clojure/core.async.git
-$ cd core.async
-$ lein install
-```
-
 ## License
 
 Copyright © 2013 FIXME
